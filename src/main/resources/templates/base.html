@@ -8,29 +8,26 @@
     <title data-th-replace="${title}">SCM</title>
 
     <th:block data-th-replace="${link}" />
-    <link rel="stylesheet" data-th-href=@{'/css/output.css'}>
+    <link rel="stylesheet" data-th-href="@{css/output.css}">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
 </head>
 
-<body>
+<body class=" dark:bg-gray-900 dark:text-white">
 
     <!-- common header -->
-    <ul class="p-4">
-        <li><a data-th-href="@{'/home'}">Home</a></li>
-        <li><a data-th-href="@{'/about'}">About</a></li>
-        <li><a data-th-href="@{'/services'}">Services</a></li>
-    </ul>
+    <div data-th-replace="~{navbar :: navbar}"></div>
 
     <!-- main content -->
-    <div class="p-4">
+    <div class="p-4 h-screen w-full">
         <section data-th-replace="${content}"></section>
     </div>
 
 
     <!-- common footer -->
     <footer class="p-4">
-        Footer: Learning with durgesh- SCM Project
+        Footer: Learning from code with durgesh-
+        <a href="https://github.com/Rajrc2001/scm">SCM Project</a>
     </footer>
 
 
