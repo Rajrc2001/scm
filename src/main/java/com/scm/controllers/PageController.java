@@ -3,6 +3,7 @@ package com.scm.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import com.scm.helpers.MessageType;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -72,10 +74,14 @@ public class PageController {
 
     // Registration Process controller
     @RequestMapping(value = "/register-user", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm, HttpSession session) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rbiBindingResult,
+            HttpSession session) {
         System.out.println("Registration Process...");
 
         System.out.println(userForm);
+
+        if (rbiBindingResult.hasErrors())
+            return "signup";
 
         // User user = new User();
 
@@ -85,20 +91,20 @@ public class PageController {
         // user.setAbout(userForm.getAbout());
         // user.setPhoneNumber(userForm.getPhoneNumber());
 
+        // crating user object using builder
         User user = User.builder()
-        .name(userForm.getName())
-        .email(userForm.getEmail())
-        .password(userForm.getPassword())
-        .about(userForm.getAbout())
-        .phoneNumber(userForm.getPhoneNumber())
-        .build();
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .build();
 
         User savedUser = userService.saveUser(user);
-        System.out.println("User saved: \n" +savedUser);
+        System.out.println("User saved: \n" + savedUser);
 
         Message message = Message.builder().content("Registration Successfull.").type(MessageType.blue).build();
         session.setAttribute("message", message);
-
 
         return "redirect:/signup";
     }
