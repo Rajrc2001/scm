@@ -1,4 +1,4 @@
-<nav data-th-fragment="navbar" class="dark:bg-gray-900 bg-white border-gray-900 shadow-sm">
+<nav data-th-fragment="navbar" class="bg-white dark:bg-gray-900 border-gray-900 shadow-sm dark:shadow-slate-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
         <!-- logo -->
@@ -10,6 +10,11 @@
 
 
         <div class="flex gap-2 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
+            <!-- dark-light theme button -->
+            <button id="theme_change_button" class="bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 dark:bg-gray-600 px-4 py-2 rounded-lg cursor-pointer">
+                <i class="fa-solid fa-circle-half-stroke"><span class="ml-2">Theme</span></i>
+            </button>
 
             <!-- login button -->
             <a data-th-href="@{'/login'}" type="button"
